@@ -46,6 +46,11 @@ public class HelloController {
         return bookMapper.findAll();
     }
 
+    @GetMapping("/books/search")
+    public List<Book> searchBooks(@RequestParam  String author){
+        return bookMapper.findByAuthor(author);
+}
+
     @PutMapping("/books/{id}")
     public String updateBook(@PathVariable int id, @RequestBody Book updateBook){
     updateBook.setId(id);

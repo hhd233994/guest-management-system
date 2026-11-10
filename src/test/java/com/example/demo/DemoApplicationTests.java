@@ -84,7 +84,19 @@ class DemoApplicationTests {
                .andExpect(content().string(
                 org.hamcrest.Matchers.containsString("\"title\":\"查询测试书\"")));
     }
+    @Test 
+    void searchBooksShouldReturnMatchingBook () throws Exception{
+        mockMvc.perform(post("/books")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"id\":5,\"title\":\"老人与海\",\"author\":\"海明威\"}"))
+               .andExpect(status().isOk());
 
+               mockMvc.perform(get("/books/search").param("author","海明威"))
+               .andExpect(status().isOk())
+               .andExpect(content().string(
+                org.hamcrest.Matchers.containsString("\"title\":\"老人与海\"")));
+    }
+    
     @Test 
     void updateBookShouldChangeTitle() throws Exception{
         mockMvc.perform(post("/books")

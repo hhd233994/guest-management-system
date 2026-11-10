@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Delete;
 
 @Mapper
 public interface BookMapper {
+    @Select("SELECT id, title, author FROM springboot_books WHERE author = #{author}")
+    List<Book> findByAuthor(String author);
+
     @Select("SELECT id, title, author FROM springboot_books")
     List<Book> findAll();
 
